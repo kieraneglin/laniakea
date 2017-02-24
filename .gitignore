@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# I cannot upload ROMs due to copyright
+.nes
