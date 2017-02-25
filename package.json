@@ -2,7 +2,7 @@
   "name": "laniakea",
   "version": "0.0.2",
   "description": "A renaming utility for classic ROMs",
-  "main": "app.js",
+  "main": "laniakea.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
