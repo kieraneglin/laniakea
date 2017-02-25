@@ -14,21 +14,16 @@ module.exports = class Laniakea {
     let konsole = helpers.getConsoleByExtension(sourceLocation);
     let game = helpers.getGameByFilepath(sourceLocation);
     let fileInfo = helpers.getFileInfo(sourceLocation);
-    let newPath;
 
-    if(this.sortIntoFolders){
-      newPath = path.join(this.outputDestination, konsole.folderName, `${game.title}.${fileInfo.extension}`);
-    } else {
-      newPath = path.join(this.outputDestination, `${game.title}.${fileInfo.extension}`);
-    }
-
-    if (!fs.existsSync(path.dirname(newPath))){
-      fs.mkdirSync(path.dirname(newPath));
-    }
-
-    fs.rename(sourceLocation, newPath, function (err) {
-      if (err) throw err;
-      console.log('Successfully renamed - AKA moved!');
+    let result = helpers.moveFile({
+      folderName: konsole.folderName,
+      game: game,
+      fileInfo: fileInfo,
+      sourceLocation: sourceLocation,
+      sortIntoFolders: this.sortIntoFolders,
+      outputDestination: this.outputDestination
     });
+
+    console.log(`${sourceLocation} -> ${result}`);
   }
 };

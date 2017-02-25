@@ -48,6 +48,30 @@ module.exports = {
     return JSON.parse(fs.readFileSync(dictPath, 'utf8'));
   },
 
+  moveFile(args) {
+    if(args.sortIntoFolders){
+      newPath = path.join(
+        args.outputDestination,
+        args.folderName,
+        `${args.game.title}.${args.fileInfo.extension}`
+      );
+
+    } else {
+      newPath = path.join(
+        args.outputDestination,
+        `${args.game.title}.${args.fileInfo.extension}`
+      );
+    }
+
+    if (!fs.existsSync(path.dirname(newPath))){
+      fs.mkdirSync(path.dirname(args.newPath));
+    }
+
+    fs.renameSync(args.sourceLocation, newPath);
+
+    return newPath;
+  },
+
   getMD5Checksum(filepath) {
     const BUFFER_SIZE = 8192;
 
