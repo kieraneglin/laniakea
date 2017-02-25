@@ -2,6 +2,7 @@
   {
     "name": "Nintendo Entertainment System",
     "folderName": "NES",
+    "dictionaryName": "nes",
     "extension": [
       "nes"
     ]
@@ -9,6 +10,7 @@
   {
     "name": "Super Nintendo Entertainment System",
     "folderName": "SNES",
+    "dictionaryName": "snes",
     "extension": [
       "snes",
       "snx"
