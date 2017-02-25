@@ -1,6 +1,6 @@
 {
   "name": "laniakea",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A renaming utility for classic ROMs",
   "main": "laniakea.js",
   "scripts": {
