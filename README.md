@@ -20,3 +20,9 @@ l = new Laniakea(string: <ROM output path>, true);
 l.renameFile(string: <ROM to be renamed>);
 
 ```
+
+## License
+
+While this package is under MIT licensing,  I want it to be explicitly clear that I don't care what you do with this software.  
+
+Seriously.  Take it, use it commercially, modify it, leave it as is, credit me, don't credit me, etc.  If you find it useful, do whatever you want with it! 
