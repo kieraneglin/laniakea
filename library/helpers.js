@@ -25,7 +25,13 @@ module.exports = {
     let konsole = this.getConsoleByExtension(filepath).dictionaryName;
     let dictPath = path.join('dictionaries', 'games', `${konsole}.json`);
 
-    return JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+    let dictionary = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+
+    if(!dictionary){
+      throw new Error(`Could not find associated dictionary for given console.  Console: ${konsole}`);
+    }
+
+    return dictionary;
   },
 
   /**
@@ -37,9 +43,15 @@ module.exports = {
     let hash = crypto.MD5Checksum(filepath);
     let dict = this.getDictionaryByFile(filepath);
 
-    return dict.find((obj) => {
+    let game = dict.find((obj) => {
       return obj.checksums.md5 == hash;
     });
+
+    if(!game){
+      throw new Error(`Could not find associated game for given file checksum.  Checksum: ${hash}`);
+    }
+
+    return game;
   },
 
   /**
@@ -50,10 +62,16 @@ module.exports = {
   getConsoleByExtension(filepath){
     let ext = filepath.split('.').pop();
     // Consoles as defined above as a json require
-    return consoles.find((obj) => {
+    let konsole = consoles.find((obj) => {
       // return the first console to use the file extension form above
       return obj.extension.includes(ext);
     });
+
+    if(!konsole){
+      throw new Error(`Could not find associated console for given file extension.  Extension: ${ext}`);
+    }
+
+    return konsole;
   },
 
   /**

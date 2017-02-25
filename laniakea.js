@@ -22,8 +22,7 @@ module.exports = class Laniakea {
    */
   renameFile(sourceLocation) {
     if (!fs.existsSync(sourceLocation)){
-      console.log(`File: ${sourceLocation} not found`);
-      return false;
+      throw new Error(`File: ${sourceLocation} not found`);
     }
 
     let result = utils.moveFile({

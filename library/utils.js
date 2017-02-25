@@ -30,11 +30,14 @@ module.exports = {
       );
     }
 
-    if (!fs.existsSync(path.dirname(newPath))){
-      fs.mkdirSync(path.dirname(newPath));
+    try{
+      if (!fs.existsSync(path.dirname(newPath))){
+        fs.mkdirSync(path.dirname(newPath));
+      }
+      fs.renameSync(args.sourceLocation, newPath);
+    } catch(e) {
+      throw new Error(`There was a generic error when moving the ROM.  Error: ${e}`);
     }
-
-    fs.renameSync(args.sourceLocation, newPath);
 
     return newPath;
   }
