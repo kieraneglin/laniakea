@@ -1,5 +1,5 @@
 const helpers = require('./library/helpers');
-const path = require('path');
+const utils = require('./library/utils');
 const fs = require('fs');
 
 module.exports = class Laniakea {
@@ -11,19 +11,18 @@ module.exports = class Laniakea {
   }
 
   renameFile(sourceLocation) {
-    let konsole = helpers.getConsoleByExtension(sourceLocation);
-    let game = helpers.getGameByFilepath(sourceLocation);
-    let fileInfo = helpers.getFileInfo(sourceLocation);
+    if (!fs.existsSync(sourceLocation)){
+      console.log(`File: ${sourceLocation} not found`);
+      return false;
+    }
 
-    let result = helpers.moveFile({
-      folderName: konsole.folderName,
-      game: game,
-      fileInfo: fileInfo,
+    let result = utils.moveFile({
       sourceLocation: sourceLocation,
       sortIntoFolders: this.sortIntoFolders,
       outputDestination: this.outputDestination
     });
 
     console.log(`${sourceLocation} -> ${result}`);
+    return true;
   }
 };

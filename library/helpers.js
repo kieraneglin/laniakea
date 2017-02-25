@@ -1,28 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const consoles = require('./../dictionaries/consoles.json');
+const crypto = require('./crypto');
 
 module.exports = {
   getGameByFilepath(filepath) {
-    let hash = this.getMD5Checksum(filepath);
+    let hash = crypto.MD5Checksum(filepath);
     let dict = this.getDictionaryByFile(filepath);
 
     return dict.find((obj) => {
       return obj.checksums.md5 == hash;
     });
-  },
-
-  getValidExtensions() {
-    let validExtensions = [];
-
-    // Consoles as defined above as a json require
-    consoles.map((obj) => {
-      // Concat to make sure it's one big array, instead of array of arrays
-      validExtensions = validExtensions.concat(obj.extension);
-    });
-
-    return validExtensions;
   },
 
   getConsoleByExtension(filepath){
@@ -48,48 +36,15 @@ module.exports = {
     return JSON.parse(fs.readFileSync(dictPath, 'utf8'));
   },
 
-  moveFile(args) {
-    if(args.sortIntoFolders){
-      newPath = path.join(
-        args.outputDestination,
-        args.folderName,
-        `${args.game.title}.${args.fileInfo.extension}`
-      );
+  getValidExtensions() {
+    let validExtensions = [];
 
-    } else {
-      newPath = path.join(
-        args.outputDestination,
-        `${args.game.title}.${args.fileInfo.extension}`
-      );
-    }
+    // Consoles as defined above as a json require
+    consoles.map((obj) => {
+      // Concat to make sure it's one big array, instead of array of arrays
+      validExtensions = validExtensions.concat(obj.extension);
+    });
 
-    if (!fs.existsSync(path.dirname(newPath))){
-      fs.mkdirSync(path.dirname(args.newPath));
-    }
-
-    fs.renameSync(args.sourceLocation, newPath);
-
-    return newPath;
+    return validExtensions;
   },
-
-  getMD5Checksum(filepath) {
-    const BUFFER_SIZE = 8192;
-
-    var fd = fs.openSync(filepath, 'r');
-    var hash = crypto.createHash('md5');
-    var buffer = new Buffer(BUFFER_SIZE);
-
-    try {
-      var bytesRead;
-
-      do {
-        bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE);
-        hash.update(buffer.slice(0, bytesRead));
-      } while (bytesRead === BUFFER_SIZE);
-    } finally {
-      fs.closeSync(fd);
-    }
-
-    return hash.digest('hex');
-  }
 };
