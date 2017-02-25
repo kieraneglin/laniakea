@@ -4,6 +4,11 @@ const consoles = require('./../dictionaries/consoles.json');
 const crypto = require('./crypto');
 
 module.exports = {
+  /**
+   * Formats source file to expose it's filename and extension in a digestable format
+   * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {object} - An object containing the filename and extension
+   */
   getFileInfo(filepath) {
     return {
       filename: path.basename(filepath).split('.').shift(),
@@ -11,6 +16,23 @@ module.exports = {
     };
   },
 
+  /**
+   * Returns the dictionary represented by the filepath.
+   * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {object} - The appropriate dictionary information for the game that is represented by filepath.
+   */
+  getDictionaryByFile(filepath) {
+    let konsole = this.getConsoleByExtension(filepath).dictionaryName;
+    let dictPath = path.join('dictionaries', 'games', `${konsole}.json`);
+
+    return JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+  },
+
+  /**
+   * Returns the game represented by the filepath from the associated dictionary.
+   * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {object} - The appropriate game information from the dictionary that is represented by filepath.
+   */
   getGameByFilepath(filepath) {
     let hash = crypto.MD5Checksum(filepath);
     let dict = this.getDictionaryByFile(filepath);
@@ -20,6 +42,11 @@ module.exports = {
     });
   },
 
+  /**
+   * Returns the appropriate console for a given file extension. Information is from the console dictionary
+   * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {object} - The appropriate consle information associated with a given filetype.
+   */
   getConsoleByExtension(filepath){
     let ext = filepath.split('.').pop();
     // Consoles as defined above as a json require
@@ -29,13 +56,11 @@ module.exports = {
     });
   },
 
-  getDictionaryByFile(filepath) {
-    let konsole = this.getConsoleByExtension(filepath).dictionaryName;
-    let dictPath = path.join('dictionaries', 'games', `${konsole}.json`);
-
-    return JSON.parse(fs.readFileSync(dictPath, 'utf8'));
-  },
-
+  /**
+   * IN PROGRESS: Returns a list of extensions that are valid for the consoles included.
+   * To be used to filter what files will be filtered from a directory walk.
+   * @return {array} - A list of extensions found in the console dictionary
+   */
   getValidExtensions() {
     let validExtensions = [];
 

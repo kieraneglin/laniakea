@@ -3,13 +3,23 @@ const utils = require('./library/utils');
 const fs = require('fs');
 
 module.exports = class Laniakea {
+  /**
+   * Creates an instance of Laniakea Renamer
+   * @constructor
+   * @param {string} outputDestination - Where you want the renamed files to be saved.
+   * @param {boolean} sortIntoFolders - Dictates if you want sorted files namespaced into folders
+   */
   constructor(outputDestination, sortIntoFolders = false) {
-    // sortIntoFolders dictates whether the roms will end up in folders named after their system
     this.outputDestination = outputDestination;
     this.sortIntoFolders = sortIntoFolders;
     this.validExtensions = helpers.getValidExtensions();
   }
 
+  /**
+   * Renames an individual file based on installed dictionaries
+   * @param {string} sourceLocation - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {boolean} - Whether the rename was successful
+   */
   renameFile(sourceLocation) {
     if (!fs.existsSync(sourceLocation)){
       console.log(`File: ${sourceLocation} not found`);

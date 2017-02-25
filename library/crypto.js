@@ -2,6 +2,12 @@ const fs = require('fs');
 const crypto = require('crypto');
 
 module.exports = {
+
+  /**
+   * Returns an MD5Checksum of a given file
+   * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
+   * @return {string} - The checksum of the given file
+   */
   MD5Checksum(filepath) {
     const BUFFER_SIZE = 8192;
 
