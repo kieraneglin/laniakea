@@ -10,43 +10,61 @@ class Laniakea {
     this.validExtensions = this.getValidExtensions(path.join('dictionaries', 'consoles', 'extensions.json'))
   }
 
-  renameFile(sourceLocation){
+  renameFile(sourceLocation) {
     let hash = this.getMD5Checksum(sourceLocation);
-    console.log(hash);
+    let game = getGameByHash(hash)
+    // console.log(hash);
   }
 
   // Private
 
-  getValidExtensions(filepath){
+  getValidExtensions(filepath) {
     let extensionMap = JSON.parse(fs.readFileSync(filepath, 'utf8'));
     let validExtensions = [];
 
     extensionMap.map((obj) => {
       // Concat to make sure it's one big array, instead of array of arrays
-      validExtensions = validExtensions.concat(obj.extension)
+      validExtensions = validExtensions.concat(obj.extension);
     });
 
-    return validExtensions
+    return validExtensions;
   }
 
-  getMD5Checksum(filepath){
-    const BUFFER_SIZE = 8192
+  getGameByHash(hash) {}
 
-    var fd = fs.openSync(filepath, 'r')
-    var hash = crypto.createHash('md5')
-    var buffer = new Buffer(BUFFER_SIZE)
+  getDictionaryByGame(filepath) {
+    let extension = path.extname(filepath);
+    let dict;
+
+    switch(extension) {
+      case '.nes':
+        dict = 'nes';
+        break;
+      case '.'
+    }
+  }
+
+  getMD5Checksum(filepath) {
+    const BUFFER_SIZE = 8192;
+
+    var fd = fs.openSync(filepath, 'r');
+    var hash = crypto.createHash('md5');
+    var buffer = new Buffer(BUFFER_SIZE);
 
     try {
-      var bytesRead
+      var bytesRead;
 
       do {
-        bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE)
-        hash.update(buffer.slice(0, bytesRead))
-      } while (bytesRead === BUFFER_SIZE)
+        bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE);
+        hash.update(buffer.slice(0, bytesRead));
+      } while (bytesRead === BUFFER_SIZE);
     } finally {
-      fs.closeSync(fd)
+      fs.closeSync(fd);
     }
 
-  return hash.digest('hex')
+    return hash.digest('hex');
   }
 }
+
+l = new Laniakea('/Users/Kieran/Documents/Programming/rom-renamer/laniakea/test_roms/dest');
+l.renameFile('/Users/Kieran/Documents/Programming/rom-renamer/laniakea/test_roms/source/1942.nes');
