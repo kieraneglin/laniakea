@@ -23,7 +23,8 @@ module.exports = {
    */
   getDictionaryByFile(filepath) {
     let konsole = this.getConsoleByExtension(filepath).dictionaryName;
-    let dictPath = path.join('dictionaries', 'games', `${konsole}.json`);
+    // Use __dirname so that relative filepaths work
+    let dictPath = path.join(__dirname, '..', 'dictionaries', 'games', `${konsole}.json`);
 
     let dictionary = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
 
