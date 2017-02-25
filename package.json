@@ -12,6 +12,16 @@
   ],
   "author": "Kieran Eglin",
   "license": "MIT",
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kieraneglin/laniakea.git"
+  },
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/kieraneglin/laniakea/issues"
+  },
+  "homepage": "https://github.com/kieraneglin/laniakea#readme",
+  "directories": {
+    "doc": "docs"
   }
 }
