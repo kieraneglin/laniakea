@@ -1,7 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
-const consoles = require('./../dictionaries/consoles.json');
 const helpers = require('./helpers');
 
 module.exports = {
