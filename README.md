@@ -4,7 +4,11 @@ The purpose of this project is to provide both a CLI and GUI for renaming and ca
 
 ## Usage
 
-After including Laniakea like so:
+After installing and including Laniakea like so:
+
+```
+npm install laniakea
+```
 
 ```javascript
   const Laniakea = require('laniakea');
@@ -25,4 +29,4 @@ l.renameFile(string: <ROM to be renamed>);
 
 While this package is under MIT licensing,  I want it to be explicitly clear that I don't care what you do with this software.  
 
-Seriously.  Take it, use it commercially, modify it, leave it as is, credit me, don't credit me, etc.  If you find it useful, do whatever you want with it! 
+Seriously.  Take it, use it commercially, modify it, leave it as is, credit me, don't credit me, etc.  If you find it useful, do whatever you want with it!
