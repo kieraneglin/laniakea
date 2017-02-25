@@ -5,23 +5,25 @@ class Laniakea {
     // sortIntoFolders dictates whether the roms will end up in folders named after their system
     this.outputDestination = outputDestination;
     this.sortIntoFolders = sortIntoFolders
-
-    let extensionMap = JSON.parse(fs.readFileSync('dictionaries/consoles/extensions.json', 'utf8'));
-    this.validExtensions = []
-
-    extensionMap.map((obj) => {
-      this.validExtensions = this.validExtensions.concat(obj.extension)
-    });
-
-    console.log(this.validExtensions);
+    this.validExtensions = this.getValidExtensions('dictionaries/consoles/extensions.json')
   }
 
   rename(sourceLocation){
 
   }
 
+  // Private
+
   getValidExtensions(filepath){
-    
+    let extensionMap = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+    let validExtensions = [];
+
+    extensionMap.map((obj) => {
+      // Concat to make sure it's one big array, instead of array of arrays
+      validExtensions = validExtensions.concat(obj.extension)
+    });
+
+    return validExtensions
   }
 }
 
