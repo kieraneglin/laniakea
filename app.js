@@ -1,15 +1,18 @@
 const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto')
 
 class Laniakea {
   constructor(outputDestination, sortIntoFolders = false) {
     // sortIntoFolders dictates whether the roms will end up in folders named after their system
     this.outputDestination = outputDestination;
     this.sortIntoFolders = sortIntoFolders
-    this.validExtensions = this.getValidExtensions('dictionaries/consoles/extensions.json')
+    this.validExtensions = this.getValidExtensions(path.join('dictionaries', 'consoles', 'extensions.json'))
   }
 
-  rename(sourceLocation){
-
+  renameFile(sourceLocation){
+    let hash = this.getMD5Checksum(sourceLocation);
+    console.log(hash);
   }
 
   // Private
@@ -25,7 +28,25 @@ class Laniakea {
 
     return validExtensions
   }
-}
 
-l = new Laniakea('/Users/Kieran/Documents/Programming/rom-renamer/laniakea/test_roms/dest');
-// console.log(l.romExtensions);
+  getMD5Checksum(filepath){
+    const BUFFER_SIZE = 8192
+
+    var fd = fs.openSync(filepath, 'r')
+    var hash = crypto.createHash('md5')
+    var buffer = new Buffer(BUFFER_SIZE)
+
+    try {
+      var bytesRead
+
+      do {
+        bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE)
+        hash.update(buffer.slice(0, bytesRead))
+      } while (bytesRead === BUFFER_SIZE)
+    } finally {
+      fs.closeSync(fd)
+    }
+
+  return hash.digest('hex')
+  }
+}

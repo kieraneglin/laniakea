@@ -1,12 +1,14 @@
 [
   {
     "name": "Nintendo Entertainment System",
+    "folderName": "NES",
     "extension": [
       "nes"
     ]
   },
   {
     "name": "Super Nintendo Entertainment System",
+    "folderName": "SNES",
     "extension": [
       "snes",
       "snx"
