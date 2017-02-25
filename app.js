@@ -1,18 +1,18 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto')
+const crypto = require('crypto');
 
 class Laniakea {
   constructor(outputDestination, sortIntoFolders = false) {
     // sortIntoFolders dictates whether the roms will end up in folders named after their system
     this.outputDestination = outputDestination;
-    this.sortIntoFolders = sortIntoFolders
-    this.validExtensions = this.getValidExtensions(path.join('dictionaries', 'consoles', 'extensions.json'))
+    this.sortIntoFolders = sortIntoFolders;
+    this.validExtensions = this.getValidExtensions(path.join('dictionaries', 'consoles', 'extensions.json'));
   }
 
   renameFile(sourceLocation) {
     let hash = this.getMD5Checksum(sourceLocation);
-    let game = getGameByHash(hash)
+    let game = getGameByHash(hash);
     // console.log(hash);
   }
 
@@ -36,12 +36,12 @@ class Laniakea {
     let extension = path.extname(filepath);
     let dict;
 
-    switch(extension) {
-      case '.nes':
-        dict = 'nes';
-        break;
-      case '.'
-    }
+    // switch(extension) {
+    //   case '.nes':
+    //     dict = 'nes';
+    //     break;
+    //   case '.'
+    // };
   }
 
   getMD5Checksum(filepath) {
