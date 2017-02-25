@@ -4,5 +4,12 @@
     "extension": [
       "nes"
     ]
+  },
+  {
+    "name": "Super Nintendo Entertainment System",
+    "extension": [
+      "snes",
+      "snx"
+    ]
   }
 ]
