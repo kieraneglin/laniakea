@@ -32,7 +32,7 @@ module.exports = {
       );
     }
 
-    if(!dryrun){
+    if (!dryrun) {
       try {
         if (!fs.existsSync(path.dirname(newPath))) {
           fs.mkdirSync(path.dirname(newPath));
@@ -56,12 +56,14 @@ module.exports = {
     let extensionList = helpers.getValidExtensions().join();
     let globPattern;
 
-    if(recursive){
+    if (recursive) {
       globPattern = `${sourceDirectory}/**/*.{${extensionList}}`;
     } else {
       globPattern = `${sourceDirectory}/*.{${extensionList}}`;
     }
 
-    return glob.sync(globPattern, { nocase: true });
+    return glob.sync(globPattern, {
+      nocase: true
+    });
   }
 };

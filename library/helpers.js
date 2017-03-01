@@ -28,7 +28,7 @@ module.exports = {
 
     let dictionary = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
 
-    if(!dictionary){
+    if (!dictionary) {
       throw new Error(`Could not find associated dictionary for given console.  Console: ${konsole}`);
     }
 
@@ -48,7 +48,7 @@ module.exports = {
       return obj.checksums.md5 == hash;
     });
 
-    if(!game){
+    if (!game) {
       throw new Error(`Could not find associated game for given file checksum.  Checksum: ${hash}`);
     }
 
@@ -60,7 +60,7 @@ module.exports = {
    * @param {string} filepath - Where the file to be renamed is located.  Should be a fullpath.
    * @return {object} - The appropriate consle information associated with a given filetype.
    */
-  getConsoleByExtension(filepath){
+  getConsoleByExtension(filepath) {
     let ext = filepath.split('.').pop().toLowerCase();
     // Consoles as defined above as a json require
     let konsole = consoles.find((obj) => {
@@ -68,7 +68,7 @@ module.exports = {
       return obj.extension.includes(ext);
     });
 
-    if(!konsole){
+    if (!konsole) {
       throw new Error(`Could not find associated console for given file extension.  Extension: ${ext}`);
     }
 

@@ -21,10 +21,13 @@ module.exports = class Laniakea {
    * @return {object} - An object containing the source and destination strings
    */
   renameFile(sourceLocation, options) {
-    let defaults = { dryrun: false, sortIntoFolders: false };
+    let defaults = {
+      dryrun: false,
+      sortIntoFolders: false
+    };
     let opts = Object.assign(defaults, options);
 
-    if (!fs.existsSync(sourceLocation)){
+    if (!fs.existsSync(sourceLocation)) {
       throw new Error(`File: ${sourceLocation} not found`);
     }
     let result = utils.moveFile({
@@ -35,7 +38,10 @@ module.exports = class Laniakea {
     });
 
     console.log(`${sourceLocation} -> ${result}`);
-    return { source: sourceLocation, destination: result };
+    return {
+      source: sourceLocation,
+      destination: result
+    };
   }
 
   /**
@@ -48,11 +54,15 @@ module.exports = class Laniakea {
    * @return {array} - An array containing a list of source and dest ojects as well as any errors
    */
   renameDirectory(sourceDirectory, options) {
-    if (!fs.existsSync(sourceDirectory)){
+    if (!fs.existsSync(sourceDirectory)) {
       throw new Error(`Directory: ${sourceDirectory} not found`);
     }
 
-    let defaults = { recursive: false, dryrun: false, sortIntoFolders: false };
+    let defaults = {
+      recursive: false,
+      dryrun: false,
+      sortIntoFolders: false
+    };
     let opts = Object.assign(defaults, options);
 
     let fileList = utils.listFiles(sourceDirectory, opts.recursive);
@@ -63,16 +73,22 @@ module.exports = class Laniakea {
       try {
         let fileDest = this.renameFile(file, {
           dryrun: opts.dryrun,
-          sortIntoFolders:
-          opts.sortIntoFolders });
+          sortIntoFolders: opts.sortIntoFolders
+        });
 
         destinationList.push(fileDest);
-      } catch(e) {
-        errorList.push({ file: file, message: e.message });
+      } catch (e) {
+        errorList.push({
+          file: file,
+          message: e.message
+        });
         console.log(`Error processing ${file}: ${e.message}`);
       }
     });
 
-    return { files: destinationList, errors: errorList };
+    return {
+      files: destinationList,
+      errors: errorList
+    };
   }
 };
