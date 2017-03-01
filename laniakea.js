@@ -44,6 +44,10 @@ module.exports = class Laniakea {
    * @return {boolean} - Whether the rename was successful
    */
   renameDirectory(sourceDirectory, options) {
+    if (!fs.existsSync(sourceDirectory)){
+      throw new Error(`Directory: ${sourceDirectory} not found`);
+    }
+
     let defaults = { recursive: false, dryrun: false };
     let opts = Object.assign(defaults, options);
 
