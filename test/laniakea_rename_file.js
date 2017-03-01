@@ -1,18 +1,7 @@
 const Laniakea = require('./../laniakea.js');
 const assert = require('assert');
 const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
 const helpers = require('./helpers/helpers');
-
-if(glob.sync('**/*.nes', { cwd: __dirname, nocase: true }).length === 0){
-  console.log("Test ROMs not found!  If you're running this from github, " +
-    "you'll need to put your own ROMs in place and update tests accordingly.");
-  console.log("For copyright reasons, I cannot check ROMs into source control. " +
-    "Please only use ROMs you own and have converted yourself.");
-
-  return false;
-}
 
 describe('Laniakea', function() {
   beforeEach(function() {
