@@ -81,11 +81,11 @@ module.exports = class Laniakea {
       fs.mkdirSync(outputDirectory);
     }
 
-    fileList = utils.listFiles(sourceDirectory, outputDirectory, opts.recursive);
+    fileList = utils.listFiles(sourceDirectory, opts.recursive);
 
     fileList.forEach((file) => {
       try {
-        let fileDest = this.renameFile(file, {
+        let fileDest = this.renameFile(file, outputDirectory, {
           dryrun: opts.dryrun,
           sortIntoFolders: opts.sortIntoFolders
         });
@@ -99,6 +99,7 @@ module.exports = class Laniakea {
 
         if(this.consoleOutput){
           console.log(`Error processing ${file}: ${e.message}`);
+          console.log(e);
         }
       }
     });

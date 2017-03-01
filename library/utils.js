@@ -63,7 +63,8 @@ module.exports = {
     }
 
     return glob.sync(globPattern, {
-      nocase: true
+      nocase: true,
+      absolute: true
     });
   }
 };
