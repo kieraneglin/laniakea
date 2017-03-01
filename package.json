@@ -4,7 +4,7 @@
   "description": "A renaming utility for classic ROMs",
   "main": "laniakea.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "ROM",
@@ -17,7 +17,8 @@
     "url": "git+https://github.com/kieraneglin/laniakea.git"
   },
   "dependencies": {
-    "glob": "^7.1.1"
+    "glob": "^7.1.1",
+    "mocha": "^3.2.0"
   },
   "bugs": {
     "url": "https://github.com/kieraneglin/laniakea/issues"
