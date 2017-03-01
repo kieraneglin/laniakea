@@ -46,7 +46,7 @@ module.exports = class Laniakea {
    * @param {boolean} options.dryrun - Whether to preform a dryrun without moving files
    * @return {array} - An array containing a list of source and dest ojects as well as any errors
    */
-  renameDirectory(sourceDirectory, outputDirectory,options) {
+  renameDirectory(sourceDirectory, outputDirectory, options) {
     if (!fs.existsSync(sourceDirectory)) {
       throw new Error(`Directory: ${sourceDirectory} not found`);
     }

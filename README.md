@@ -17,16 +17,41 @@ npm install laniakea
 ```javascript
   const Laniakea = require('laniakea');
 ```
-you can instantiate Laniakea while passing the desired output destination and a boolean dictating whether you want files to be namespaced into folders named after their console (default: false).
 
-After instantiation, the only available method at this time is `renameFile`.  The only argument is the filepath to the ROM you want renamed.  The rename is written to console and the new location of the ROM is returned.
+After instantiation, the available methods are `renameFile` and `renameDirectory`.  The only argument is the filepath to the ROM you want renamed.  The rename is written to console and the new location of the ROM is returned.
 
 #### Example:
 
 ```javascript
-l = new Laniakea(string: <ROM output path>, true);
-l.renameFile(string: <ROM to be renamed>);
+l = new Laniakea();
+l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
+l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
 
+```
+
+## Options
+
+#### renameFile
+
+Below is a list of options for the `renameFile()` command.  The keys are the option name and the values are the defaults.
+
+```javascript
+  {
+    dryrun: false, // If true, it will return a mock run without moving any files
+    sortIntoFolders: false // If true, files will be namespaced into folders named after the console
+  }
+```
+
+#### renameDirectory
+
+Below is a list of options for the `renameDirectory()` command.  The keys are the option name and the values are the defaults.
+
+```javascript
+  {
+    recursive: false, // If true, will recurse into subdirectories to find appropriate files
+    dryrun: false, // If true, it will return a mock run without moving any files
+    sortIntoFolders: false // If true, files will be namespaced into folders named after the console
+  }
 ```
 
 ## License
