@@ -18,11 +18,16 @@ module.exports = class Laniakea {
       sortIntoFolders: false
     };
     let opts = Object.assign(defaults, options);
+    let result;
 
     if (!fs.existsSync(sourceLocation)) {
       throw new Error(`File: ${sourceLocation} not found`);
     }
-    let result = utils.moveFile({
+    if (!fs.existsSync(outputDirectory)) {
+      fs.mkdirSync(outputDirectory);
+    }
+
+    result = utils.moveFile({
       sourceLocation: sourceLocation,
       sortIntoFolders: opts.sortIntoFolders,
       outputDestination: outputDirectory,
@@ -47,20 +52,24 @@ module.exports = class Laniakea {
    * @return {array} - An array containing a list of source and dest ojects as well as any errors
    */
   renameDirectory(sourceDirectory, outputDirectory, options) {
-    if (!fs.existsSync(sourceDirectory)) {
-      throw new Error(`Directory: ${sourceDirectory} not found`);
-    }
-
     let defaults = {
       recursive: false,
       dryrun: false,
       sortIntoFolders: false
     };
     let opts = Object.assign(defaults, options);
-
-    let fileList = utils.listFiles(sourceDirectory, outputDirectory,opts.recursive);
     let destinationList = [];
     let errorList = [];
+    let fileList;
+
+    if (!fs.existsSync(sourceDirectory)) {
+      throw new Error(`Directory: ${sourceDirectory} not found`);
+    }
+    if (!fs.existsSync(outputDirectory)) {
+      fs.mkdirSync(outputDirectory);
+    }
+
+    fileList = utils.listFiles(sourceDirectory, outputDirectory, opts.recursive);
 
     fileList.forEach((file) => {
       try {
