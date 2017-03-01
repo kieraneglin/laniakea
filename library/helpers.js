@@ -61,7 +61,7 @@ module.exports = {
    * @return {object} - The appropriate consle information associated with a given filetype.
    */
   getConsoleByExtension(filepath){
-    let ext = filepath.split('.').pop();
+    let ext = filepath.split('.').pop().toLowerCase();
     // Consoles as defined above as a json require
     let konsole = consoles.find((obj) => {
       // return the first console to use the file extension form above
