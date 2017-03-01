@@ -4,23 +4,15 @@ const fs = require('fs');
 
 module.exports = class Laniakea {
   /**
-   * Creates an instance of Laniakea Renamer
-   * @constructor
-   * @param {string} outputDestination - Where you want the renamed files to be saved.
-   */
-  constructor(outputDestination) {
-    this.outputDestination = outputDestination;
-  }
-
-  /**
    * Renames an individual file based on installed dictionaries
    * @param {string} sourceLocation - Where the file to be renamed is located.  Should be a fullpath.
+   * @param {string} outputDirectory - Where you want the renamed files to be saved. Should be a fullpath.
    * @param {object} options - A configuration object
    * @param {boolean} options.sortIntoFolders - Whether to namespace into folders named after the console
    * @param {boolean} options.dryrun - Whether to preform a dryrun without moving files
    * @return {object} - An object containing the source and destination strings
    */
-  renameFile(sourceLocation, options) {
+  renameFile(sourceLocation, outputDirectory, options) {
     let defaults = {
       dryrun: false,
       sortIntoFolders: false
@@ -33,7 +25,7 @@ module.exports = class Laniakea {
     let result = utils.moveFile({
       sourceLocation: sourceLocation,
       sortIntoFolders: opts.sortIntoFolders,
-      outputDestination: this.outputDestination,
+      outputDestination: outputDirectory,
       dryrun: opts.dryrun
     });
 
@@ -47,13 +39,14 @@ module.exports = class Laniakea {
   /**
    * Renames an individual file based on installed dictionaries
    * @param {string} sourceDirectory - Where the directory with files to be renamed is located.  Should be a fullpath.
+   * @param {string} outputDirectory - Where you want the renamed files to be saved. Should be a fullpath.
    * @param {object} options - A configuration object
    * @param {boolean} options.sortIntoFolders - Whether to namespace into folders named after the console
    * @param {boolean} options.recursive - Whether to recursively search directories
    * @param {boolean} options.dryrun - Whether to preform a dryrun without moving files
    * @return {array} - An array containing a list of source and dest ojects as well as any errors
    */
-  renameDirectory(sourceDirectory, options) {
+  renameDirectory(sourceDirectory, outputDirectory,options) {
     if (!fs.existsSync(sourceDirectory)) {
       throw new Error(`Directory: ${sourceDirectory} not found`);
     }
@@ -65,7 +58,7 @@ module.exports = class Laniakea {
     };
     let opts = Object.assign(defaults, options);
 
-    let fileList = utils.listFiles(sourceDirectory, opts.recursive);
+    let fileList = utils.listFiles(sourceDirectory, outputDirectory,opts.recursive);
     let destinationList = [];
     let errorList = [];
 
