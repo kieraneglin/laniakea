@@ -1,6 +1,6 @@
 # THIS PROJECT IS A WORK IN PROGRESS
 
-The only console with a dictionary is currently the NES.  More will be added after 1.0.0 is released.
+The only console with a dictionary is currently the NES.  More will be added once 1.0.0 of this project, the CLI, and the GUI are released.
 
 # Laniakea ROM Renamer
 
@@ -23,7 +23,17 @@ Upon instantiation, you can supply a boolean to dictate whether there is console
 #### Example:
 
 ```javascript
-l = new Laniakea(boolean: <Display console output>);
+l = new Laniakea(object.consoleOutput: <Display console output>);
+l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
+l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
+
+```
+___
+
+Real world example:
+
+```javascript
+l = new Laniakea({ consoleOutput: });
 l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
 l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
 

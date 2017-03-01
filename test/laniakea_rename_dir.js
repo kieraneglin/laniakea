@@ -5,8 +5,7 @@ const h = require('./helpers/helpers');
 
 describe('Laniakea', function () {
   beforeEach(function () {
-    // Pass false to silence console
-    this.l = new Laniakea(false);
+    this.l = new Laniakea({ consoleOutput: false });
   });
 
   describe('renameDirectory', function () {

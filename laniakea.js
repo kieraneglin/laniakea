@@ -6,10 +6,12 @@ module.exports = class Laniakea {
 
   /**
    * @constructor
-   * @param {boolean} consoleOutput - Dictates if script writes to console.
+   * @param {boolean} options.consoleOutput - Dictates if script writes to console.
    */
-  constructor(consoleOutput = true) {
-    this.consoleOutput = consoleOutput;
+  constructor(options) {
+    let defaults = { consoleOutput: true };
+    let opts = Object.assign(defaults, options);
+    this.consoleOutput = opts.consoleOutput;
   }
 
   /**
