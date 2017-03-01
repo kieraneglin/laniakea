@@ -34,4 +34,16 @@ module.exports = class Laniakea {
     console.log(`${sourceLocation} -> ${result}`);
     return true;
   }
+
+  renameDirectory(sourceDirectory) {
+    let fileList = utils.listFiles(sourceDirectory);
+
+    fileList.forEach((file) => {
+      try {
+        this.renameFile(file);
+      } catch(e) {
+        throw new Error(`There was an error in moving file '${file}'.  Error: ${e}`);
+      }
+    });
+  }
 };
