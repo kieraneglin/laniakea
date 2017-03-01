@@ -12,38 +12,53 @@ module.exports = class Laniakea {
   constructor(outputDestination, sortIntoFolders = false) {
     this.outputDestination = outputDestination;
     this.sortIntoFolders = sortIntoFolders;
-    this.validExtensions = helpers.getValidExtensions();
   }
 
   /**
    * Renames an individual file based on installed dictionaries
    * @param {string} sourceLocation - Where the file to be renamed is located.  Should be a fullpath.
+   * @param {boolean} dryrun - Will output the resultant paths of a rename operation without moving the file
    * @return {boolean} - Whether the rename was successful
    */
-  renameFile(sourceLocation) {
+  renameFile(sourceLocation, dryrun = false) {
     if (!fs.existsSync(sourceLocation)){
       throw new Error(`File: ${sourceLocation} not found`);
     }
-
     let result = utils.moveFile({
       sourceLocation: sourceLocation,
       sortIntoFolders: this.sortIntoFolders,
-      outputDestination: this.outputDestination
+      outputDestination: this.outputDestination,
+      dryrun: dryrun
     });
 
     console.log(`${sourceLocation} -> ${result}`);
-    return true;
+    return { source: sourceLocation, destination: result };
   }
 
-  renameDirectory(sourceDirectory) {
-    let fileList = utils.listFiles(sourceDirectory);
+  /**
+   * Renames an individual file based on installed dictionaries
+   * @param {string} sourceDirectory - Where the directory with files to be renamed is located.  Should be a fullpath.
+   * @param {object} options - A configuration object
+   * @param {boolean} options.recursive - Whether to recursively search directories
+   * @param {boolean} options.dryrun - Whether to preform a dryrun without moving files
+   * @return {boolean} - Whether the rename was successful
+   */
+  renameDirectory(sourceDirectory, options) {
+    let defaults = { recursive: false, dryrun: false };
+    let opts = Object.assign(defaults, options);
+
+    let fileList = utils.listFiles(sourceDirectory, opts.recursive);
+    let destinationList = [];
 
     fileList.forEach((file) => {
       try {
-        this.renameFile(file);
+        let fileDest = this.renameFile(file, opts.dryrun);
+        destinationList.push(fileDest);
       } catch(e) {
         throw new Error(`There was an error in moving file '${file}'.  Error: ${e}`);
       }
     });
+
+    return destinationList;
   }
 };
