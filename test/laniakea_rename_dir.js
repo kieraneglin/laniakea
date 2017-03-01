@@ -116,8 +116,7 @@ describe('Laniakea', function () {
           sortIntoFolders: false
         });
 
-        assert(rename.errors.length === 1);
-        assert(rename.errors[0].file === h.romPath('without_checksum.nes'));
+        assert(rename[2].errors);
       });
       it('returns array of all modified files', function () {
         let rename = this.l.renameDirectory(h.romPath(), h.romDest(), {
@@ -126,7 +125,7 @@ describe('Laniakea', function () {
           sortIntoFolders: false
         });
 
-        assert(rename.files.length > 0);
+        assert(rename.length > 0);
       });
     });
   });

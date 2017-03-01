@@ -51,7 +51,8 @@ module.exports = class Laniakea {
 
     return {
       source: sourceLocation,
-      destination: result
+      destination: result,
+      errors: null
     };
   }
 
@@ -73,7 +74,6 @@ module.exports = class Laniakea {
     };
     let opts = Object.assign(defaults, options);
     let destinationList = [];
-    let errorList = [];
     let fileList;
 
     if (!fs.existsSync(sourceDirectory)) {
@@ -94,9 +94,10 @@ module.exports = class Laniakea {
 
         destinationList.push(fileDest);
       } catch (e) {
-        errorList.push({
-          file: file,
-          message: e.message
+        destinationList.push({
+          source: file,
+          destination: null,
+          errors: e.message
         });
 
         if(this.consoleOutput){
@@ -105,9 +106,6 @@ module.exports = class Laniakea {
       }
     });
 
-    return {
-      files: destinationList,
-      errors: errorList
-    };
+    return destinationList;
   }
 };
