@@ -45,7 +45,7 @@ module.exports = class Laniakea {
    * @param {boolean} options.sortIntoFolders - Whether to namespace into folders named after the console
    * @param {boolean} options.recursive - Whether to recursively search directories
    * @param {boolean} options.dryrun - Whether to preform a dryrun without moving files
-   * @return {array} - An array containing a list of source and dest ojects.
+   * @return {array} - An array containing a list of source and dest ojects as well as any errors
    */
   renameDirectory(sourceDirectory, options) {
     if (!fs.existsSync(sourceDirectory)){
@@ -57,6 +57,7 @@ module.exports = class Laniakea {
 
     let fileList = utils.listFiles(sourceDirectory, opts.recursive);
     let destinationList = [];
+    let errorList = [];
 
     fileList.forEach((file) => {
       try {
@@ -67,10 +68,11 @@ module.exports = class Laniakea {
 
         destinationList.push(fileDest);
       } catch(e) {
-        throw new Error(`There was an error in moving file '${file}'.  Error: ${e}`);
+        errorList.push({ file: file, message: e.message });
+        console.log(`Error processing ${file}: ${e.message}`);
       }
     });
 
-    return destinationList;
+    return { files: destinationList, errors: errorList };
   }
 };
