@@ -43,7 +43,7 @@ module.exports = class Laniakea {
       dryrun: opts.dryrun
     });
 
-    if(consoleOutput){
+    if(this.consoleOutput){
       console.log(`${sourceLocation} -> ${result}`);
     }
 
@@ -97,7 +97,7 @@ module.exports = class Laniakea {
           message: e.message
         });
 
-        if(consoleOutput){
+        if(this.consoleOutput){
           console.log(`Error processing ${file}: ${e.message}`);
         }
       }
