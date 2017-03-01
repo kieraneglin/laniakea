@@ -8,7 +8,7 @@ describe('Laniakea', () => {
   describe('renameFile', () => {
     describe('dryrun: true', () => {
       it('returns non-namespaced mock rename', () => {
-        console.log(this.wow);
+        this.l.renameFile();
       });
     });
   });

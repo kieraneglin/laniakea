@@ -62,3 +62,6 @@ test_roms/
 
 # For playing around as I go
 test.js
+
+# To hide ROMs from version control
+test/roms/**/*.nes
