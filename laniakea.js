@@ -3,6 +3,15 @@ const utils = require('./library/utils');
 const fs = require('fs');
 
 module.exports = class Laniakea {
+
+  /**
+   * @constructor
+   * @param {boolean} consoleOutput - Dictates if script writes to console.
+   */
+  constructor(consoleOutput = true) {
+    this.consoleOutput = consoleOutput;
+  }
+
   /**
    * Renames an individual file based on installed dictionaries
    * @param {string} sourceLocation - Where the file to be renamed is located.  Should be a fullpath.
@@ -34,7 +43,10 @@ module.exports = class Laniakea {
       dryrun: opts.dryrun
     });
 
-    console.log(`${sourceLocation} -> ${result}`);
+    if(consoleOutput){
+      console.log(`${sourceLocation} -> ${result}`);
+    }
+
     return {
       source: sourceLocation,
       destination: result
@@ -84,7 +96,10 @@ module.exports = class Laniakea {
           file: file,
           message: e.message
         });
-        console.log(`Error processing ${file}: ${e.message}`);
+
+        if(consoleOutput){
+          console.log(`Error processing ${file}: ${e.message}`);
+        }
       }
     });
 

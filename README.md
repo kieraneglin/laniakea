@@ -18,12 +18,12 @@ npm install laniakea
   const Laniakea = require('laniakea');
 ```
 
-After instantiation, the available methods are `renameFile` and `renameDirectory`.  The only argument is the filepath to the ROM you want renamed.  The rename is written to console and the new location of the ROM is returned.
+Upon instantiation, you can supply a boolean to dictate whether there is console output after a successful file transfer or dryrun. After instantiation, the available methods are `renameFile` and `renameDirectory`.  The only argument is the filepath to the ROM you want renamed.  The rename is written to console and the new location of the ROM is returned.
 
 #### Example:
 
 ```javascript
-l = new Laniakea();
+l = new Laniakea(boolean: <Display console output>);
 l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
 l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
 
