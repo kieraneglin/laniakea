@@ -23,9 +23,9 @@ Upon instantiation, you can supply a boolean to dictate whether there is console
 #### Example:
 
 ```javascript
-l = new Laniakea(object.consoleOutput: <Display console output>);
-l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
-l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
+l = new Laniakea(object.consoleOutput: <Display console output | optional>);
+l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options | optional>);
+l.renameDirectory(string: <Dir to be sorted>, string: <output directory>, object: <options | optional>);
 
 ```
 ___
@@ -33,9 +33,16 @@ ___
 Real world example:
 
 ```javascript
-l = new Laniakea({ consoleOutput: });
-l.renameFile(string: <ROM to be renamed>, string: <output directory>, object: <options>);
-l.renameDirectory(string: <ROM to be renamed>, string: <output directory>, object: <options>);
+l = new Laniakea({ consoleOutput: true});
+l.renameFile('User/Downloads/unnamed.nes', 'User/Games/', {
+  dryrun: false,
+  sortIntoFolders: true
+});
+l.renameDirectory('User/Downloads/ROMs/', 'User/Games/', {
+  recursive: false,
+  dryrun: false,
+  sortIntoFolders: false
+});
 
 ```
 
