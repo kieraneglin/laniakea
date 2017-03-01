@@ -101,7 +101,6 @@ module.exports = class Laniakea {
 
         if(this.consoleOutput){
           console.log(`Error processing ${file}: ${e.message}`);
-          console.log(e);
         }
       }
     });
