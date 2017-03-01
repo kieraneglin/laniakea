@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const helpers = require('./helpers');
+const glob = require('glob');
 
 module.exports = {
   /**
@@ -16,7 +17,7 @@ module.exports = {
     let game = helpers.getGameByFilepath(args.sourceLocation);
     let fileInfo = helpers.getFileInfo(args.sourceLocation);
 
-    if(args.sortIntoFolders){
+    if (args.sortIntoFolders) {
       newPath = path.join(
         args.outputDestination,
         konsole.folderName,
@@ -30,15 +31,34 @@ module.exports = {
       );
     }
 
-    try{
-      if (!fs.existsSync(path.dirname(newPath))){
+    try {
+      if (!fs.existsSync(path.dirname(newPath))) {
         fs.mkdirSync(path.dirname(newPath));
       }
       fs.renameSync(args.sourceLocation, newPath);
-    } catch(e) {
+    } catch (e) {
       throw new Error(`There was a generic error when moving the ROM.  Error: ${e}`);
     }
 
     return newPath;
+  },
+
+  /**
+   * Renames an individual file based on installed dictionaries
+   * @param {string} sourceDirectory - The directory to be searched.  Should be a fullpath.
+   * @param {boolean} recursive - Whether subdirectories should be searched
+   * @return {array} - A list of all files that have extenstions specified in the console dictionary
+   */
+  listFiles(sourceDirectory, recursive = false) {
+    let extensionList = helpers.getValidExtensions().join();
+    let globPattern;
+
+    if(recursive){
+      globPattern = `${sourceDirectory}/**/*.{${extensionList}}`;
+    } else {
+      globPattern = `${sourceDirectory}/*.{${extensionList}}`;
+    }
+
+    return glob.sync(globPattern, { nocase: true });
   }
 };
