@@ -1,3 +1,7 @@
+# THIS PROJECT IS A WORK IN PROGRESS
+
+The only console with a dictionary is currently the NES.  More will be added after 1.0.0 is released.
+
 # Laniakea ROM Renamer
 
 The purpose of this project is to provide both a CLI and GUI for renaming and categorization of ROMs.  This is going to be the backbone for both.
