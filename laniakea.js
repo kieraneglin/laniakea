@@ -108,4 +108,12 @@ module.exports = class Laniakea {
 
     return destinationList;
   }
+
+  validFiletypes(){
+    return helpers.getValidExtensions();
+  }
+
+  listFiles(sourceDirectory, recursive = false) {
+    return utils.listFiles(sourceDirectory, recursive);
+  }
 };
