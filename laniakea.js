@@ -109,10 +109,20 @@ module.exports = class Laniakea {
     return destinationList;
   }
 
+  /**
+   * Returns all valid ROM file extensions as an array
+   * @return {array} - All ROM extensions listed in the console dictionary
+   */
   validFiletypes(){
     return helpers.getValidExtensions();
   }
 
+  /**
+   * Returns array of filepaths from a given directory
+   * @param {string} sourceDirectory - The directory to start searching in
+   * @param {boolean} recursive - Whether to only scan the directory provided as well as all subdirectories
+   * @return {array} - A list of full filepaths
+   */
   listFiles(sourceDirectory, recursive = false) {
     return utils.listFiles(sourceDirectory, recursive);
   }
